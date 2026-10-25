@@ -19,7 +19,7 @@ export interface UserDetails{
     full_name?: string;
     avatar_url?: string;
     billing_address?: Stripe.Address;
-    payment_method?: Stripe.PaymentMethod[Stripe.PaymentMethod.Type];
+    payment_method?: Stripe.PaymentMethod[Extract<Stripe.PaymentMethod.Type, keyof Stripe.PaymentMethod>];
 
 };
 
@@ -41,8 +41,8 @@ export interface Price{
     description?: string;
     unit_amount?: number;
     currency?: string;
-    type?: Stripe.Price.Type;
-    interval?: Stripe.Price.Recurring.Interval;
+    type?: Extract<Stripe.Price.Type, 'one_time' | 'recurring'>;
+    interval?: Extract<Stripe.Price.Recurring.Interval, 'day' | 'month' | 'week' | 'year'>;
     interval_count?: number;
     trial_period_days?: number | null;
     metadata?: Stripe.Metadata;
